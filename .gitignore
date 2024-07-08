@@ -25,3 +25,15 @@ doc/api/
 
 .flutter-plugins
 .flutter-plugins-dependencies
+
+.DS_Store
+devtools_options.yaml
+
+# Ignore generated files
+*.g.dart
+*.mapper.dart
+.fvm
+
+# Ignore IDE
+.idea/
+.vscode/
