@@ -27,6 +27,7 @@ class PlayerBloc extends Bloc<PlayerEvent, PlayerState> {
       emit(state.copyWith(
         playerStatus: PlayerStatus.loaded,
         players: players,
+        playerName: "",
       ));
     });
 
