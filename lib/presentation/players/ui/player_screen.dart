@@ -4,6 +4,7 @@ import 'package:nine_dart_score/core/di/get_it_setup.dart';
 import 'package:nine_dart_score/presentation/players/bloc/player_bloc.dart';
 import 'package:nine_dart_score/presentation/players/ui/player_add_screen.dart';
 import 'package:nine_dart_score/presentation/players/ui/player_list.dart';
+import 'package:nine_dart_score/widgets/animations/route_animation.dart';
 
 class PlayerScreen extends StatefulWidget {
   const PlayerScreen({super.key});
@@ -25,9 +26,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
           child: const Icon(Icons.person_add),
           onPressed: () {
             Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => const PlayerAddScreen(),
-              ),
+              createRouteWithTransition(child: const PlayerAddScreen()),
             );
           },
         ),
