@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nine_dart_score/presentation/players/player_list.dart';
+import 'package:nine_dart_score/presentation/players/ui/player_list.dart';
 
 class PlayerScreen extends StatefulWidget {
   const PlayerScreen({super.key});

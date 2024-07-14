@@ -37,3 +37,4 @@ devtools_options.yaml
 # Ignore IDE
 .idea/
 .vscode/
+ios/Flutter/Debug.xcconfig

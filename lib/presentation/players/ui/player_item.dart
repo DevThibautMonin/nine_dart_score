@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:nine_dart_score/domain/entities/player.dart';
 
 class PlayerItem extends StatelessWidget {
+  final PlayerEntity? playerEntity;
   final Function()? onDelete;
 
   const PlayerItem({
     super.key,
     this.onDelete,
+    this.playerEntity,
   });
 
   @override
@@ -18,11 +21,11 @@ class PlayerItem extends StatelessWidget {
           height: 80,
           child: Row(
             children: [
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Text(
-                  "Test",
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                  playerEntity?.name ?? "",
+                  style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),
               const Spacer(),

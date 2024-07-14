@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:nine_dart_score/presentation/game/game_screen.dart';
 import 'package:nine_dart_score/presentation/history/history_screen.dart';
-import 'package:nine_dart_score/presentation/players/player_screen.dart';
+import 'package:nine_dart_score/presentation/players/ui/player_screen.dart';
 
 class TabsScreen extends StatefulWidget {
   const TabsScreen({super.key});
