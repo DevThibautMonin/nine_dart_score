@@ -25,17 +25,21 @@ class _PlayerListState extends State<PlayerList> {
               return const Center(child: CircularProgressIndicator());
             case PlayerStatus.loaded:
               final players = state.players;
-              return ListView.builder(
-                itemCount: players?.length,
-                itemBuilder: (context, index) {
-                  return PlayerItem(
-                    onDelete: () {
-                      _playerBloc.add(DeletePlayerEvent(playerId: players?[index].id ?? 0));
-                    },
-                    playerEntity: players?[index],
-                  );
-                },
-              );
+              if (players == null || players.isEmpty) {
+                return const Center(child: Text("Pour commencer, ajoutez un joueur."));
+              } else {
+                return ListView.builder(
+                  itemCount: players.length,
+                  itemBuilder: (context, index) {
+                    return PlayerItem(
+                      onDelete: () {
+                        _playerBloc.add(DeletePlayerEvent(playerId: players[index].id ?? 0));
+                      },
+                      playerEntity: players[index],
+                    );
+                  },
+                );
+              }
             default:
               return Container();
           }

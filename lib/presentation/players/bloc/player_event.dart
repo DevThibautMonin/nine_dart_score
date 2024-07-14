@@ -11,3 +11,11 @@ class DeletePlayerEvent extends PlayerEvent {
     required this.playerId,
   });
 }
+
+class CreatePlayerEvent extends PlayerEvent {
+  final PlayerEntity playerEntity;
+
+  CreatePlayerEvent({
+    required this.playerEntity,
+  });
+}

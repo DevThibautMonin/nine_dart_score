@@ -18,5 +18,5 @@ void setupGetIt() {
   getIt.registerLazySingleton(() => DeletePlayerUsecase());
   getIt.registerLazySingleton(() => PlayerRepository());
   getIt.registerLazySingleton(() => PlayerLocalDatasource());
-  getIt.registerFactory(() => PlayerBloc());
+  getIt.registerLazySingleton(() => PlayerBloc());
 }
