@@ -6,4 +6,11 @@ final ThemeData lightTheme = ThemeData(
   colorScheme: ColorScheme.fromSeed(
     seedColor: CustomColors.primaryBlue,
   ),
+  inputDecorationTheme: const InputDecorationTheme(
+    border: OutlineInputBorder(
+      borderSide: BorderSide(
+        color: Colors.black,
+      ),
+    ),
+  ),
 );

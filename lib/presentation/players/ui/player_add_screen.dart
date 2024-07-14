@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nine_dart_score/core/di/get_it_setup.dart';
 import 'package:nine_dart_score/domain/entities/player.dart';
 import 'package:nine_dart_score/presentation/players/bloc/player_bloc.dart';
+import 'package:nine_dart_score/widgets/custom_button.dart';
+import 'package:nine_dart_score/widgets/custom_textfield.dart';
 
 class PlayerAddScreen extends StatefulWidget {
   const PlayerAddScreen({super.key});
@@ -27,25 +29,32 @@ class _PlayerAddScreenState extends State<PlayerAddScreen> {
         body: SafeArea(
           child: Column(
             children: [
-              TextField(
-                controller: nameController,
-                decoration: const InputDecoration(
-                  labelText: "Name",
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child: CustomTextfield(
+                  controller: nameController,
+                  labelText: "Nom",
+                  onChanged: (name) {
+                    _playerBloc.add(PlayerNameChanged(playerName: name));
+                  },
                 ),
-                textCapitalization: TextCapitalization.sentences,
               ),
               const Spacer(),
               BlocBuilder<PlayerBloc, PlayerState>(
                 builder: (context, state) {
-                  return OutlinedButton(
-                    onPressed: () {
-                      final player = _createPlayer();
+                  return Padding(
+                    padding: const EdgeInsets.all(15),
+                    child: CustomButton(
+                      text: "Créer",
+                      isEnabled: state.isFormValid(),
+                      onPressed: () {
+                        final player = _createPlayer();
 
-                      _playerBloc.add(CreatePlayerEvent(playerEntity: player));
+                        _playerBloc.add(CreatePlayerEvent(playerEntity: player));
 
-                      Navigator.pop(context);
-                    },
-                    child: const Text("Créer"),
+                        Navigator.pop(context);
+                      },
+                    ),
                   );
                 },
               )

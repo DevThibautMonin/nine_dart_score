@@ -52,5 +52,9 @@ class PlayerBloc extends Bloc<PlayerEvent, PlayerState> {
         players: players,
       ));
     });
+
+    on<PlayerNameChanged>((event, emit) {
+      emit(state.copyWith(playerName: event.playerName));
+    });
   }
 }

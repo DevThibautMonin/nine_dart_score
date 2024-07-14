@@ -19,3 +19,11 @@ class CreatePlayerEvent extends PlayerEvent {
     required this.playerEntity,
   });
 }
+
+class PlayerNameChanged extends PlayerEvent {
+  final String? playerName;
+
+  PlayerNameChanged({
+    this.playerName,
+  });
+}
