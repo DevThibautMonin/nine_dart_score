@@ -5,6 +5,7 @@ import 'package:nine_dart_score/data/repositories/player_repository.dart';
 import 'package:nine_dart_score/domain/usecases/create_player_usecase.dart';
 import 'package:nine_dart_score/domain/usecases/delete_player_usecase.dart';
 import 'package:nine_dart_score/domain/usecases/get_players_usecase.dart';
+import 'package:nine_dart_score/presentation/game/bloc/game_bloc.dart';
 import 'package:nine_dart_score/presentation/players/bloc/player_bloc.dart';
 
 GetIt getIt = GetIt.instance;
@@ -19,4 +20,7 @@ void setupGetIt() {
   getIt.registerLazySingleton(() => PlayerRepository());
   getIt.registerLazySingleton(() => PlayerLocalDatasource());
   getIt.registerLazySingleton(() => PlayerBloc());
+
+  // Game
+  getIt.registerFactory(() => GameBloc());
 }

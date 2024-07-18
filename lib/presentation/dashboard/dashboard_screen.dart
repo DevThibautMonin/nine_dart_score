@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:nine_dart_score/presentation/classic/classic_screen.dart';
+import 'package:nine_dart_score/presentation/game/ui/game_screen.dart';
 import 'package:nine_dart_score/themes/custom_colors.dart';
 import 'package:nine_dart_score/widgets/animations/route_animation.dart';
 
-class GameScreen extends StatefulWidget {
-  const GameScreen({super.key});
+class DashboardScreen extends StatefulWidget {
+  const DashboardScreen({super.key});
 
   @override
-  State<GameScreen> createState() => _GameScreenState();
+  State<DashboardScreen> createState() => _DashboardScreenState();
 }
 
-class _GameScreenState extends State<GameScreen> {
+class _DashboardScreenState extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,7 +37,7 @@ class _GameScreenState extends State<GameScreen> {
               ),
               OutlinedButton(
                 onPressed: () {
-                  Navigator.of(context).push(createRouteWithTransition(child: const ClassicScreen()));
+                  Navigator.of(context).push(createRouteWithTransition(child: const GameScreen()));
                 },
                 child: const Text("Classique (501 / 301)"),
               )
