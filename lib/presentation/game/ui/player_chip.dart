@@ -33,7 +33,7 @@ class PlayerChip extends StatelessWidget {
         avatar: isSelected
             ? null
             : CircleAvatar(
-                backgroundColor: Colors.blueAccent,
+                backgroundColor: CustomColors.primaryBlue,
                 child: Text(
                   player?.name[0] ?? "",
                   style: const TextStyle(color: Colors.white),
