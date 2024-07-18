@@ -32,5 +32,9 @@ class GameBloc extends Bloc<GameEvent, GameState> {
 
       emit(state.copyWith(players: players));
     });
+
+    on<SelectTargetScore>((event, emit) {
+      emit(state.copyWith(targetScore: event.targetScore));
+    });
   }
 }

@@ -2,9 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nine_dart_score/core/di/get_it_setup.dart';
 import 'package:nine_dart_score/presentation/game/bloc/game_bloc.dart';
+import 'package:nine_dart_score/presentation/game/ui/game_screen.dart';
 import 'package:nine_dart_score/presentation/game/ui/player_chip.dart';
+import 'package:nine_dart_score/presentation/game/ui/target_score_chip.dart';
+import 'package:nine_dart_score/widgets/animations/route_animation.dart';
 import 'package:nine_dart_score/widgets/custom_button.dart';
 import 'package:nine_dart_score/widgets/gaps.dart';
+
+enum ClassicGameEnum { points301, points501 }
+
+extension ClassicGameEnumExtension on ClassicGameEnum {
+  String get score {
+    switch (this) {
+      case ClassicGameEnum.points301:
+        return "301";
+      case ClassicGameEnum.points501:
+        return "501";
+      default:
+        return "";
+    }
+  }
+}
 
 class GameSettingsScreen extends StatefulWidget {
   const GameSettingsScreen({super.key});
@@ -15,11 +33,14 @@ class GameSettingsScreen extends StatefulWidget {
 
 class _GameSettingsScreenState extends State<GameSettingsScreen> {
   final GameBloc _gameBloc = getIt.get();
+  ClassicGameEnum _selectedGameType = ClassicGameEnum.points301;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
-      value: _gameBloc..add(GetGameData()),
+      value: _gameBloc
+        ..add(GetGameData())
+        ..add(SelectTargetScore(targetScore: _selectedGameType.score)),
       child: Scaffold(
         appBar: AppBar(
           title: const Text("Classique"),
@@ -35,12 +56,19 @@ class _GameSettingsScreenState extends State<GameSettingsScreen> {
                   "Nombre de points",
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
-                const Row(
-                  children: [
-                    Chip(label: Text("301")),
-                    Gaps.gapW10,
-                    Chip(label: Text("501")),
-                  ],
+                Row(
+                  children: ClassicGameEnum.values.map((gameType) {
+                    return TargetScoreChip(
+                      label: gameType.score,
+                      isSelected: _selectedGameType == gameType,
+                      onSelected: () {
+                        setState(() {
+                          _selectedGameType = gameType;
+                        });
+                        _gameBloc.add(SelectTargetScore(targetScore: gameType.score));
+                      },
+                    );
+                  }).toList(),
                 ),
                 Gaps.gapH15,
                 const Text(
@@ -78,9 +106,20 @@ class _GameSettingsScreenState extends State<GameSettingsScreen> {
                   },
                 ),
                 const Spacer(),
-                CustomButton(
-                  text: "Créer",
-                  onPressed: () {},
+                BlocBuilder<GameBloc, GameState>(
+                  builder: (context, state) {
+                    final players = state.players;
+                    return CustomButton(
+                      isEnabled: state.targetScore != null && players != null && players.isNotEmpty,
+                      text: "Créer",
+                      onPressed: () {
+                        Navigator.of(context).push(createRouteWithTransition(
+                            child: GameScreen(
+                          gameBloc: _gameBloc,
+                        )));
+                      },
+                    );
+                  },
                 ),
               ],
             ),
