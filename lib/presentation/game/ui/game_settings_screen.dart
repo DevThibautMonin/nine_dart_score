@@ -6,14 +6,14 @@ import 'package:nine_dart_score/presentation/game/ui/player_chip.dart';
 import 'package:nine_dart_score/widgets/custom_button.dart';
 import 'package:nine_dart_score/widgets/gaps.dart';
 
-class GameScreen extends StatefulWidget {
-  const GameScreen({super.key});
+class GameSettingsScreen extends StatefulWidget {
+  const GameSettingsScreen({super.key});
 
   @override
-  State<GameScreen> createState() => _GameScreenState();
+  State<GameSettingsScreen> createState() => _GameSettingsScreenState();
 }
 
-class _GameScreenState extends State<GameScreen> {
+class _GameSettingsScreenState extends State<GameSettingsScreen> {
   final GameBloc _gameBloc = getIt.get();
 
   @override

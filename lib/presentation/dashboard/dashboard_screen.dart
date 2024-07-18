@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:nine_dart_score/presentation/game/ui/game_screen.dart';
+import 'package:nine_dart_score/presentation/game/ui/game_settings_screen.dart';
 import 'package:nine_dart_score/themes/custom_colors.dart';
 import 'package:nine_dart_score/widgets/animations/route_animation.dart';
 
@@ -37,7 +37,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               ),
               OutlinedButton(
                 onPressed: () {
-                  Navigator.of(context).push(createRouteWithTransition(child: const GameScreen()));
+                  Navigator.of(context).push(createRouteWithTransition(child: const GameSettingsScreen()));
                 },
                 child: const Text("Classique (501 / 301)"),
               )
