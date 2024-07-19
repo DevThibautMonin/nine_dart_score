@@ -111,7 +111,7 @@ class _GameSettingsScreenState extends State<GameSettingsScreen> {
                     final players = state.players;
                     return CustomButton(
                       isEnabled: state.targetScore != null && players != null && players.isNotEmpty,
-                      text: "Créer",
+                      text: "Commencer",
                       onPressed: () {
                         Navigator.of(context).push(createRouteWithTransition(
                             child: GameScreen(
