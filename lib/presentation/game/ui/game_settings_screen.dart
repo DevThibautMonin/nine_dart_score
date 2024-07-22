@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nine_dart_score/core/di/get_it_setup.dart';
 import 'package:nine_dart_score/presentation/game/bloc/game_bloc.dart';
 import 'package:nine_dart_score/presentation/game/ui/game_screen.dart';
-import 'package:nine_dart_score/presentation/game/ui/player_chip.dart';
+import 'package:nine_dart_score/presentation/game/ui/player_settings_chip.dart';
 import 'package:nine_dart_score/presentation/game/ui/target_score_chip.dart';
 import 'package:nine_dart_score/widgets/animations/route_animation.dart';
 import 'package:nine_dart_score/widgets/custom_button.dart';
@@ -86,7 +86,7 @@ class _GameSettingsScreenState extends State<GameSettingsScreen> {
                           final allPlayers = state.allPlayers;
                           final isSelected = state.players?.contains(allPlayers?[index]) ?? false;
                           if (allPlayers != null && allPlayers.isNotEmpty) {
-                            return PlayerChip(
+                            return PlayerSettingsChip(
                               player: state.allPlayers?[index],
                               isSelected: isSelected,
                               onSelected: (selected) {

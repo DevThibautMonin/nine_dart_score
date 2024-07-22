@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:nine_dart_score/domain/entities/player.dart';
 import 'package:nine_dart_score/themes/custom_colors.dart';
 
-class PlayerChip extends StatelessWidget {
+class PlayerSettingsChip extends StatelessWidget {
   final PlayerEntity? player;
   final bool isSelected;
   final Function(bool) onSelected;
 
-  const PlayerChip({
+  const PlayerSettingsChip({
     super.key,
     this.player,
     required this.isSelected,

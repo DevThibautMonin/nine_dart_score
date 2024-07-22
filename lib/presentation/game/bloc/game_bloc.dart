@@ -36,5 +36,20 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     on<SelectTargetScore>((event, emit) {
       emit(state.copyWith(targetScore: event.targetScore));
     });
+
+    on<StartGameEvent>((event, emit) {
+      emit(state.copyWith(currentPlayerIndex: 0));
+    });
+
+    on<NextTurnEvent>((event, emit) {
+      var newIndex = state.currentPlayerIndex + 1;
+      final maxIndex = state.players?.length ?? 0;
+
+      if (newIndex >= maxIndex) {
+        newIndex = 0;
+      }
+
+      emit(state.copyWith(currentPlayerIndex: newIndex));
+    });
   }
 }

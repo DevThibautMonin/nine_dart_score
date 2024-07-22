@@ -29,3 +29,11 @@ class RemovePlayerEvent extends GameEvent {
 class GetGameData extends GameEvent {
   GetGameData();
 }
+
+class StartGameEvent extends GameEvent {
+  StartGameEvent();
+}
+
+class NextTurnEvent extends GameEvent {
+  NextTurnEvent();
+}
