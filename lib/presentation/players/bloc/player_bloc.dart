@@ -1,10 +1,10 @@
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nine_dart_score/core/di/get_it_setup.dart';
-import 'package:nine_dart_score/domain/entities/player.dart';
-import 'package:nine_dart_score/domain/usecases/create_player_usecase.dart';
-import 'package:nine_dart_score/domain/usecases/delete_player_usecase.dart';
-import 'package:nine_dart_score/domain/usecases/get_players_usecase.dart';
+import 'package:nine_dart_score/domain/entities/player/player.dart';
+import 'package:nine_dart_score/domain/usecases/player/create_player_usecase.dart';
+import 'package:nine_dart_score/domain/usecases/player/delete_player_usecase.dart';
+import 'package:nine_dart_score/domain/usecases/player/get_players_usecase.dart';
 
 part 'player_event.dart';
 part 'player_state.dart';

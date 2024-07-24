@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nine_dart_score/core/di/get_it_setup.dart';
-import 'package:nine_dart_score/domain/entities/player.dart';
+import 'package:nine_dart_score/domain/entities/player/player.dart';
 import 'package:nine_dart_score/presentation/players/bloc/player_bloc.dart';
 import 'package:nine_dart_score/widgets/custom_button.dart';
 import 'package:nine_dart_score/widgets/custom_textfield.dart';

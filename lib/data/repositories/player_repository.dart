@@ -1,7 +1,7 @@
 import 'package:nine_dart_score/core/di/get_it_setup.dart';
 import 'package:nine_dart_score/data/datasources/local/player_local_datasource.dart';
-import 'package:nine_dart_score/data/entities/player.dart';
-import 'package:nine_dart_score/domain/entities/player.dart';
+import 'package:nine_dart_score/data/mappers/player_mapper.dart';
+import 'package:nine_dart_score/domain/entities/player/player.dart';
 import 'package:nine_dart_score/domain/repositories/player_repository.dart';
 
 class PlayerRepository implements IPlayerRepository {
@@ -9,20 +9,15 @@ class PlayerRepository implements IPlayerRepository {
 
   @override
   Future createPlayer(PlayerEntity playerEntity) async {
-    final player = Player(
-      id: playerEntity.id,
-      name: playerEntity.name,
-    );
+    final playerData = PlayerMapper.toData(playerEntity);
 
-    await _playerLocalDatasource.createPlayer(player);
+    await _playerLocalDatasource.createPlayer(playerData);
   }
 
   @override
   Future<List<PlayerEntity>> getPlayers() async {
     final players = await _playerLocalDatasource.getPlayers();
-    return players.map((e) {
-      return PlayerEntity(id: e.id, name: e.name);
-    }).toList();
+    return players.map((player) => PlayerMapper.toEntityFromData(player)).toList();
   }
 
   @override

@@ -5,10 +5,12 @@ part 'player.mapper.dart';
 @MappableClass()
 class PlayerEntity with PlayerEntityMappable {
   final int? id;
-  final String name;
+  final String? name;
+  final int? score;
 
   PlayerEntity({
     this.id,
-    required this.name,
+    this.name,
+    this.score,
   });
 }

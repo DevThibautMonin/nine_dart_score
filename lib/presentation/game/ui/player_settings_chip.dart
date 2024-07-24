@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nine_dart_score/domain/entities/player.dart';
+import 'package:nine_dart_score/domain/entities/player/player.dart';
 import 'package:nine_dart_score/themes/custom_colors.dart';
 
 class PlayerSettingsChip extends StatelessWidget {
@@ -35,7 +35,7 @@ class PlayerSettingsChip extends StatelessWidget {
             : CircleAvatar(
                 backgroundColor: CustomColors.primaryBlue,
                 child: Text(
-                  player?.name[0] ?? "",
+                  player?.name?[0] ?? "",
                   style: const TextStyle(color: Colors.white),
                 ),
               ),

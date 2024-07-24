@@ -6,11 +6,12 @@ part 'player.g.dart';
 @Name("Player")
 class Player {
   Id? id = Isar.autoIncrement;
-
-  String name;
+  String? name;
+  int? score;
 
   Player({
     this.id,
-    required this.name,
+    this.name,
+    this.score,
   });
 }

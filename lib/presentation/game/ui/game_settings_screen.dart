@@ -12,14 +12,14 @@ import 'package:nine_dart_score/widgets/gaps.dart';
 enum ClassicGameEnum { points301, points501 }
 
 extension ClassicGameEnumExtension on ClassicGameEnum {
-  String get score {
+  int get score {
     switch (this) {
       case ClassicGameEnum.points301:
-        return "301";
+        return 301;
       case ClassicGameEnum.points501:
-        return "501";
+        return 501;
       default:
-        return "";
+        return 0;
     }
   }
 }
@@ -59,7 +59,7 @@ class _GameSettingsScreenState extends State<GameSettingsScreen> {
                 Row(
                   children: ClassicGameEnum.values.map((gameType) {
                     return TargetScoreChip(
-                      label: gameType.score,
+                      label: gameType.score.toString(),
                       isSelected: _selectedGameType == gameType,
                       onSelected: () {
                         setState(() {
@@ -115,7 +115,7 @@ class _GameSettingsScreenState extends State<GameSettingsScreen> {
                       onPressed: () {
                         Navigator.of(context).push(createRouteWithTransition(
                             child: GameScreen(
-                          gameBloc: _gameBloc,
+                          gameBloc: _gameBloc..add(StartGameEvent()),
                         )));
                       },
                     );

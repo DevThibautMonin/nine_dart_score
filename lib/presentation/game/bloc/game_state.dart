@@ -5,9 +5,10 @@ enum GameStatus { initial }
 @MappableClass()
 class GameState with GameStateMappable {
   final GameStatus gameStatus;
+  final GameEntity? game;
   final List<PlayerEntity>? players;
   final List<PlayerEntity>? allPlayers;
-  final String? targetScore;
+  final int? targetScore;
   final int currentPlayerIndex;
 
   const GameState({
@@ -16,5 +17,6 @@ class GameState with GameStateMappable {
     this.allPlayers,
     this.targetScore,
     this.currentPlayerIndex = 0,
+    this.game,
   });
 }

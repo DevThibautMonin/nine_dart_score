@@ -1,7 +1,7 @@
 import 'package:isar/isar.dart';
 import 'package:nine_dart_score/core/di/get_it_setup.dart';
 import 'package:nine_dart_score/data/database.dart';
-import 'package:nine_dart_score/data/entities/player.dart';
+import 'package:nine_dart_score/data/entities/player/player.dart';
 
 class PlayerLocalDatasource {
   Database database = getIt.get();

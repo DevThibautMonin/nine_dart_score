@@ -1,5 +1,6 @@
 import 'package:isar/isar.dart';
-import 'package:nine_dart_score/data/entities/player.dart';
+import 'package:nine_dart_score/data/entities/game/game.dart';
+import 'package:nine_dart_score/data/entities/player/player.dart';
 import 'package:path_provider/path_provider.dart';
 
 class Database {
@@ -14,7 +15,10 @@ class Database {
 
     if (Isar.instanceNames.isEmpty) {
       return await Isar.open(
-        [PlayerSchema],
+        [
+          PlayerSchema,
+          GameSchema,
+        ],
         directory: dir.path,
         inspector: true,
       );

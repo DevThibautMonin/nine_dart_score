@@ -3,7 +3,7 @@ part of 'game_bloc.dart';
 sealed class GameEvent {}
 
 class SelectTargetScore extends GameEvent {
-  final String? targetScore;
+  final int? targetScore;
 
   SelectTargetScore({
     this.targetScore,

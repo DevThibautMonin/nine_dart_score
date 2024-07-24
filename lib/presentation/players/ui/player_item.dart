@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nine_dart_score/domain/entities/player.dart';
+import 'package:nine_dart_score/domain/entities/player/player.dart';
 
 class PlayerItem extends StatelessWidget {
   final PlayerEntity? playerEntity;
