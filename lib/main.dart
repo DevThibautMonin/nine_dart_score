@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nine_dart_score/core/commons/constants.dart';
 import 'package:nine_dart_score/core/di/get_it_setup.dart';
 import 'package:nine_dart_score/presentation/tabs_screen/tabs_screen.dart';
 import 'package:nine_dart_score/themes/dark_theme.dart';
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: '9 Dart Score',
+      title: Constants.appTitle,
       theme: lightTheme,
       darkTheme: darkTheme,
       home: const Scaffold(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:nine_dart_score/core/commons/constants.dart';
 import 'package:nine_dart_score/presentation/game/ui/game_settings_screen.dart';
 import 'package:nine_dart_score/themes/custom_colors.dart';
 import 'package:nine_dart_score/widgets/animations/route_animation.dart';
@@ -23,7 +24,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const Text(
-                "9 Dart Score",
+                Constants.appTitle,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 48,
@@ -33,7 +34,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               SizedBox(
                 width: 150,
                 height: 150,
-                child: SvgPicture.asset("assets/dart_target.svg"),
+                child: SvgPicture.asset(Constants.dartTargetAsset),
               ),
               OutlinedButton(
                 onPressed: () {
