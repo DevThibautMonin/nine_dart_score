@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:nine_dart_score/core/commons/constants.dart';
 import 'package:nine_dart_score/presentation/game/ui/game_settings_screen.dart';
@@ -12,7 +14,31 @@ class DashboardScreen extends StatefulWidget {
   State<DashboardScreen> createState() => _DashboardScreenState();
 }
 
-class _DashboardScreenState extends State<DashboardScreen> {
+class _DashboardScreenState extends State<DashboardScreen> with SingleTickerProviderStateMixin {
+  late AnimationController _animationController;
+  double _scale = 0.1;
+
+  @override
+  void initState() {
+    super.initState();
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 1),
+    )..repeat(reverse: true);
+
+    _animationController.addListener(() {
+      setState(() {
+        _scale = 1.0 + 0.3 * _animationController.value;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,10 +57,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   color: CustomColors.primaryBlue,
                 ),
               ),
-              SizedBox(
-                width: 150,
-                height: 150,
-                child: SvgPicture.asset(Constants.dartTargetAsset),
+              RepaintBoundary(
+                child: AnimatedScale(
+                  scale: _scale,
+                  duration: const Duration(milliseconds: 500),
+                  child: SizedBox(
+                    width: 150,
+                    height: 150,
+                    child: SvgPicture.asset(Constants.dartTargetAsset),
+                  ),
+                ),
               ),
               OutlinedButton(
                 onPressed: () {
