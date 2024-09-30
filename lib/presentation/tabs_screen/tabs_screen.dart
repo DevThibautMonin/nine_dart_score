@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:nine_dart_score/core/commons/constants.dart';
 import 'package:nine_dart_score/presentation/dashboard/dashboard_screen.dart';
 import 'package:nine_dart_score/presentation/history/history_screen.dart';
 import 'package:nine_dart_score/presentation/players/ui/player_screen.dart';
@@ -36,7 +37,7 @@ class _TabsScreenState extends State<TabsScreen> {
         items: [
           BottomNavigationBarItem(
             icon: SvgPicture.asset(
-              "assets/dart_target.svg",
+              Constants.dartTargetAsset,
               height: 24,
               width: 24,
             ),
