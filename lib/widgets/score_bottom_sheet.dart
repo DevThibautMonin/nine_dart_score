@@ -32,6 +32,8 @@ class ScoreBottomSheet extends StatelessWidget {
                   padding: const EdgeInsets.all(15),
                   child: Row(
                     children: [
+                      Icon(Icons.person, color: gameBloc.state.game?.players?[index].color),
+                      Gaps.gapW10,
                       Text("${gameBloc.state.game?.players?[index].name}"),
                       const Spacer(),
                       Text("${gameBloc.state.game?.players?[index].score}"),

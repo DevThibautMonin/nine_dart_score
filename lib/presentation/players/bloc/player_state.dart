@@ -9,14 +9,16 @@ class PlayerState with PlayerStateMappable {
 
   // Data validation
   final String playerName;
+  final Color? playerColor;
 
   const PlayerState({
     this.players,
     this.playerStatus = PlayerStatus.initial,
     this.playerName = "",
+    this.playerColor,
   });
 
   bool isFormValid() {
-    return playerName.isNotEmpty;
+    return playerName.isNotEmpty && playerColor != null;
   }
 }

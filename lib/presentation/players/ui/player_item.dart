@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nine_dart_score/domain/entities/player/player.dart';
+import 'package:nine_dart_score/widgets/gaps.dart';
 
 class PlayerItem extends StatelessWidget {
   final PlayerEntity? playerEntity;
@@ -21,6 +22,8 @@ class PlayerItem extends StatelessWidget {
           height: 80,
           child: Row(
             children: [
+              Gaps.gapW10,
+              Icon(Icons.person, color: playerEntity?.color),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Text(

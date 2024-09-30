@@ -8,10 +8,12 @@ class PlayerEmbedded {
   int? id;
   String? name;
   int? score;
+  int? color;
 
   PlayerEmbedded({
     this.id,
     this.name,
     this.score,
+    this.color,
   });
 }

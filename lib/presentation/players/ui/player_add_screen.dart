@@ -16,6 +16,16 @@ class PlayerAddScreen extends StatefulWidget {
 class _PlayerAddScreenState extends State<PlayerAddScreen> {
   final PlayerBloc _playerBloc = getIt.get();
   final TextEditingController nameController = TextEditingController();
+  final List<Color> _playerColors = [
+    Colors.red,
+    Colors.green,
+    Colors.yellow,
+    Colors.blue,
+    Colors.orange,
+    Colors.pink,
+    Colors.purple,
+  ];
+  Color _selectedColor = Colors.red;
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +46,28 @@ class _PlayerAddScreenState extends State<PlayerAddScreen> {
                   labelText: "Nom",
                   onChanged: (name) {
                     _playerBloc.add(PlayerNameChanged(playerName: name));
+                  },
+                ),
+              ),
+              SizedBox(
+                height: 50,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: _playerColors.length,
+                  itemBuilder: (context, index) {
+                    final color = _playerColors[index];
+                    return GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          _selectedColor = color;
+                        });
+                        _playerBloc.add(PlayerColorChanged(playerColor: color));
+                      },
+                      child: CircleAvatar(
+                        backgroundColor: color,
+                        radius: _selectedColor == color ? 30 : 20,
+                      ),
+                    );
                   },
                 ),
               ),
@@ -68,6 +100,7 @@ class _PlayerAddScreenState extends State<PlayerAddScreen> {
   PlayerEntity _createPlayer() {
     final player = PlayerEntity(
       name: nameController.text,
+      color: _selectedColor,
     );
     return player;
   }

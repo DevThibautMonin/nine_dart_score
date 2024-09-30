@@ -27,3 +27,11 @@ class PlayerNameChanged extends PlayerEvent {
     this.playerName,
   });
 }
+
+class PlayerColorChanged extends PlayerEvent {
+  final Color? playerColor;
+
+  PlayerColorChanged({
+    this.playerColor,
+  });
+}
