@@ -1,28 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nine_dart_score/core/di/get_it_setup.dart';
+import 'package:nine_dart_score/domain/enums/classic_game_enum.dart';
 import 'package:nine_dart_score/presentation/game/bloc/game_bloc.dart';
 import 'package:nine_dart_score/presentation/game/ui/game_screen.dart';
 import 'package:nine_dart_score/presentation/game/ui/player_settings_chip.dart';
 import 'package:nine_dart_score/presentation/game/ui/target_score_chip.dart';
 import 'package:nine_dart_score/widgets/animations/route_animation.dart';
 import 'package:nine_dart_score/widgets/custom_button.dart';
+import 'package:nine_dart_score/widgets/custom_textfield.dart';
 import 'package:nine_dart_score/widgets/gaps.dart';
-
-enum ClassicGameEnum { points301, points501 }
-
-extension ClassicGameEnumExtension on ClassicGameEnum {
-  int get score {
-    switch (this) {
-      case ClassicGameEnum.points301:
-        return 301;
-      case ClassicGameEnum.points501:
-        return 501;
-      default:
-        return 0;
-    }
-  }
-}
 
 class GameSettingsScreen extends StatefulWidget {
   const GameSettingsScreen({super.key});
@@ -34,6 +21,7 @@ class GameSettingsScreen extends StatefulWidget {
 class _GameSettingsScreenState extends State<GameSettingsScreen> {
   final GameBloc _gameBloc = getIt.get();
   ClassicGameEnum _selectedGameType = ClassicGameEnum.points301;
+  final TextEditingController _gameNameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -52,6 +40,13 @@ class _GameSettingsScreenState extends State<GameSettingsScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                CustomTextfield(
+                  controller: _gameNameController,
+                  labelText: "Nom de la partie*",
+                  onChanged: (value) {
+                    _gameBloc.add(GameNameChangedEvent(gameName: value));
+                  },
+                ),
                 const Text(
                   "Nombre de points",
                   style: TextStyle(fontWeight: FontWeight.bold),
@@ -84,7 +79,7 @@ class _GameSettingsScreenState extends State<GameSettingsScreen> {
                         itemCount: state.allPlayers?.length,
                         itemBuilder: (context, index) {
                           final allPlayers = state.allPlayers;
-                          final isSelected = state.players?.contains(allPlayers?[index]) ?? false;
+                          final isSelected = state.players.contains(allPlayers?[index]);
                           if (allPlayers != null && allPlayers.isNotEmpty) {
                             return PlayerSettingsChip(
                               player: state.allPlayers?[index],
@@ -108,15 +103,20 @@ class _GameSettingsScreenState extends State<GameSettingsScreen> {
                 const Spacer(),
                 BlocBuilder<GameBloc, GameState>(
                   builder: (context, state) {
-                    final players = state.players;
                     return CustomButton(
-                      isEnabled: state.targetScore != null && players != null && players.isNotEmpty,
+                      isEnabled: state.isFormValid(),
                       text: "Commencer",
                       onPressed: () {
-                        Navigator.of(context).push(createRouteWithTransition(
+                        Navigator.of(context).push(
+                          createRouteWithTransition(
                             child: GameScreen(
-                          gameBloc: _gameBloc..add(StartGameEvent()),
-                        )));
+                              gameBloc: _gameBloc
+                                ..add(
+                                  StartGameEvent(gameName: _gameNameController.text),
+                                ),
+                            ),
+                          ),
+                        );
                       },
                     );
                   },
