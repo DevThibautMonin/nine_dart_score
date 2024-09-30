@@ -30,10 +30,32 @@ class GetGameData extends GameEvent {
   GetGameData();
 }
 
-class StartGameEvent extends GameEvent {
-  StartGameEvent();
+class GameNameChangedEvent extends GameEvent {
+  final String? gameName;
+
+  GameNameChangedEvent({
+    this.gameName,
+  });
 }
 
-class NextTurnEvent extends GameEvent {
-  NextTurnEvent();
+class StartGameEvent extends GameEvent {
+  final String? gameName;
+
+  StartGameEvent({
+    this.gameName,
+  });
+}
+
+class NextPlayerEvent extends GameEvent {
+  final PlayerEntity? currentPlayer;
+  final int firstThrow;
+  final int secondThrow;
+  final int thirdThrow;
+
+  NextPlayerEvent({
+    this.currentPlayer,
+    this.firstThrow = 0,
+    this.secondThrow = 0,
+    this.thirdThrow = 0,
+  });
 }

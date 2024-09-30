@@ -1,8 +1,11 @@
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nine_dart_score/core/di/get_it_setup.dart';
+import 'package:nine_dart_score/data/repositories/game_repository.dart';
 import 'package:nine_dart_score/domain/entities/game/game.dart';
 import 'package:nine_dart_score/domain/entities/player/player.dart';
+import 'package:nine_dart_score/domain/entities/throw/throw.dart';
+import 'package:nine_dart_score/domain/entities/turn/turn.dart';
 import 'package:nine_dart_score/domain/usecases/game/create_game_usecase.dart';
 import 'package:nine_dart_score/domain/usecases/player/get_players_usecase.dart';
 
@@ -13,6 +16,7 @@ part 'game_bloc.mapper.dart';
 class GameBloc extends Bloc<GameEvent, GameState> {
   final GetPlayersUsecase _getPlayersUsecase = getIt.get();
   final CreateGameUsecase _createGameUsecase = getIt.get();
+  final GameRepository _gameRepository = getIt.get();
 
   GameBloc() : super(const GameState()) {
     on<GetGameData>((event, emit) async {
@@ -21,7 +25,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     });
 
     on<AddPlayerEvent>((event, emit) {
-      List<PlayerEntity>? players = List.from(state.players ?? []);
+      List<PlayerEntity>? players = List.from(state.players);
 
       players.add(event.player);
 
@@ -29,7 +33,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     });
 
     on<RemovePlayerEvent>((event, emit) {
-      List<PlayerEntity>? players = List.from(state.players ?? []);
+      List<PlayerEntity>? players = List.from(state.players);
 
       players.remove(event.player);
 
@@ -42,7 +46,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
 
     on<StartGameEvent>((event, emit) async {
       var players = state.players;
-      var game = GameEntity(players: players, targetScore: state.targetScore ?? 0);
+      var game = GameEntity(players: players, targetScore: state.targetScore ?? 0, name: event.gameName, turns: []);
       var newGame = await _createGameUsecase(game);
 
       emit(state.copyWith(
@@ -51,15 +55,42 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       ));
     });
 
-    on<NextTurnEvent>((event, emit) async {
+    on<GameNameChangedEvent>((event, emit) {
+      emit(state.copyWith(gameName: event.gameName));
+    });
+
+    on<NextPlayerEvent>((event, emit) async {
+      var currentPlayer = state.game?.players?[state.currentPlayerIndex];
+      var currentPlayerScore = state.game?.players?[state.currentPlayerIndex].score;
+      var turnNumber = state.turnNumber;
+
+      var firstThrow = ThrowEntity(playerId: currentPlayer?.id, value: event.firstThrow);
+      var secondThrow = ThrowEntity(playerId: currentPlayer?.id, value: event.secondThrow);
+      var thirdThrow = ThrowEntity(playerId: currentPlayer?.id, value: event.thirdThrow);
+      var turn = TurnEntity(throws: [firstThrow, secondThrow, thirdThrow], playerId: currentPlayer?.id);
+
+      var totalScore = firstThrow.value + secondThrow.value + thirdThrow.value;
+      var currentPlayerNewScore = 0;
+
+      if (currentPlayerScore != null) {
+        currentPlayerNewScore = currentPlayerScore - totalScore;
+      }
+
+      var result = await _gameRepository.updateGame(state.game?.id ?? 0, currentPlayer?.id ?? 0, currentPlayerNewScore, turn);
+
       var newIndex = state.currentPlayerIndex + 1;
-      final maxIndex = state.players?.length ?? 0;
+      final maxIndex = state.players.length;
 
       if (newIndex >= maxIndex) {
         newIndex = 0;
+        var newTurnNumber = turnNumber + 1;
+        emit(state.copyWith(turnNumber: newTurnNumber));
       }
 
-      emit(state.copyWith(currentPlayerIndex: newIndex));
+      emit(state.copyWith(
+        currentPlayerIndex: newIndex,
+        game: result,
+      ));
     });
   }
 }

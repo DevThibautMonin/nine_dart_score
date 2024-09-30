@@ -7,6 +7,7 @@ part 'game.mapper.dart';
 @MappableClass()
 class GameEntity with GameEntityMappable {
   final int? id;
+  final String? name;
   final List<PlayerEntity>? players;
   final int targetScore;
   final List<TurnEntity>? turns;
@@ -16,5 +17,6 @@ class GameEntity with GameEntityMappable {
     this.players,
     required this.targetScore,
     this.turns,
+    this.name,
   });
 }
