@@ -1,4 +1,5 @@
 import 'package:dart_mappable/dart_mappable.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nine_dart_score/core/di/get_it_setup.dart';
 import 'package:nine_dart_score/domain/entities/player/player.dart';
@@ -56,6 +57,10 @@ class PlayerBloc extends Bloc<PlayerEvent, PlayerState> {
 
     on<PlayerNameChanged>((event, emit) {
       emit(state.copyWith(playerName: event.playerName));
+    });
+
+    on<PlayerColorChanged>((event, emit) {
+      emit(state.copyWith(playerColor: event.playerColor));
     });
   }
 }
