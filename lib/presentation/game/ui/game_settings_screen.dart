@@ -109,6 +109,7 @@ class _GameSettingsScreenState extends State<GameSettingsScreen> {
                       onPressed: () {
                         Navigator.of(context).push(
                           createRouteWithTransition(
+                            direction: TransitionDirection.fromDiagBottomRight,
                             child: GameScreen(
                               gameBloc: _gameBloc
                                 ..add(

@@ -35,4 +35,14 @@ class GameRepository {
       throw Exception("Impossible de mettre à jour le score du joueur.");
     }
   }
+
+  Future<List<GameEntity>?> getGames() async {
+    var games = await _gameLocalDatasource.getGames();
+    final gamesEntity = games?.map((e) => GameMapper.toEntity(e)).toList();
+    return gamesEntity;
+  }
+
+  Future<void> deleteGame(int gameId) async {
+    await _gameLocalDatasource.deleteGame(gameId);
+  }
 }

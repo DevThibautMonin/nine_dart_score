@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nine_dart_score/presentation/game/bloc/game_bloc.dart';
+import 'package:nine_dart_score/themes/custom_colors.dart';
 import 'package:nine_dart_score/widgets/gaps.dart';
 
 class ScoreBottomSheet extends StatelessWidget {
@@ -17,13 +18,26 @@ class ScoreBottomSheet extends StatelessWidget {
       width: double.infinity,
       child: Column(
         children: [
-          const Text(
-            "Scores",
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
+          const Padding(
+            padding: EdgeInsets.all(10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.leaderboard,
+                  color: CustomColors.primaryBlue,
+                ),
+                Gaps.gapW10,
+                Text(
+                  "Scores",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: CustomColors.primaryBlue,
+                  ),
+                ),
+              ],
             ),
           ),
-          Gaps.gapH15,
           Expanded(
             child: ListView.builder(
               itemCount: gameBloc.state.players.length,
@@ -34,7 +48,12 @@ class ScoreBottomSheet extends StatelessWidget {
                     children: [
                       Icon(Icons.person, color: gameBloc.state.game?.players?[index].color),
                       Gaps.gapW10,
-                      Text("${gameBloc.state.game?.players?[index].name}"),
+                      Text(
+                        "${gameBloc.state.game?.players?[index].name}",
+                        style: const TextStyle(
+                          fontSize: 18,
+                        ),
+                      ),
                       const Spacer(),
                       Text("${gameBloc.state.game?.players?[index].score}"),
                     ],

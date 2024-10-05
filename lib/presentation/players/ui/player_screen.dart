@@ -26,7 +26,10 @@ class _PlayerScreenState extends State<PlayerScreen> {
           child: const Icon(Icons.person_add),
           onPressed: () {
             Navigator.of(context).push(
-              createRouteWithTransition(child: const PlayerAddScreen()),
+              createRouteWithTransition(
+                child: const PlayerAddScreen(),
+                direction: TransitionDirection.fromDiagBottomRight,
+              ),
             );
           },
         ),

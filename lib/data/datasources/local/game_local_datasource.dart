@@ -8,6 +8,14 @@ import 'package:nine_dart_score/data/entities/turn/turn.dart';
 class GameLocalDatasource {
   Database database = getIt.get();
 
+  Future<void> deleteGame(int gameId) async {
+    final db = await database.database;
+
+    db.writeTxn(() async {
+      await db.games.delete(gameId);
+    });
+  }
+
   Future<Game?> createGame(Game game, List<PlayerEmbedded>? players) async {
     final db = await database.database;
     return db.writeTxn(() async {
@@ -43,6 +51,14 @@ class GameLocalDatasource {
         await db.games.put(game);
       }
       return await db.games.where().idEqualTo(gameId).findFirst();
+    });
+  }
+
+  Future<List<Game>?> getGames() async {
+    final db = await database.database;
+
+    return db.writeTxn(() async {
+      return db.games.where().findAll();
     });
   }
 }

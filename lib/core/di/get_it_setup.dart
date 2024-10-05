@@ -5,10 +5,13 @@ import 'package:nine_dart_score/data/datasources/local/player_local_datasource.d
 import 'package:nine_dart_score/data/repositories/game_repository.dart';
 import 'package:nine_dart_score/data/repositories/player_repository.dart';
 import 'package:nine_dart_score/domain/usecases/game/create_game_usecase.dart';
+import 'package:nine_dart_score/domain/usecases/game/delete_game_usecase.dart';
+import 'package:nine_dart_score/domain/usecases/game/get_history_game_list_usecase.dart';
 import 'package:nine_dart_score/domain/usecases/player/create_player_usecase.dart';
 import 'package:nine_dart_score/domain/usecases/player/delete_player_usecase.dart';
 import 'package:nine_dart_score/domain/usecases/player/get_players_usecase.dart';
 import 'package:nine_dart_score/presentation/game/bloc/game_bloc.dart';
+import 'package:nine_dart_score/presentation/history/bloc/history_bloc.dart';
 import 'package:nine_dart_score/presentation/players/bloc/player_bloc.dart';
 
 GetIt getIt = GetIt.instance;
@@ -29,4 +32,9 @@ void setupGetIt() {
   getIt.registerFactory(() => GameLocalDatasource());
   getIt.registerFactory(() => GameRepository());
   getIt.registerFactory(() => CreateGameUsecase());
+  getIt.registerFactory(() => DeleteGameUsecase());
+
+  // History
+  getIt.registerFactory(() => GetHistoryGameListUsecase());
+  getIt.registerFactory(() => HistoryBloc());
 }

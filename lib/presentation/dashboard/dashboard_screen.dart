@@ -70,7 +70,10 @@ class _DashboardScreenState extends State<DashboardScreen> with SingleTickerProv
               ),
               OutlinedButton(
                 onPressed: () {
-                  Navigator.of(context).push(createRouteWithTransition(child: const GameSettingsScreen()));
+                  Navigator.of(context).push(createRouteWithTransition(
+                    child: const GameSettingsScreen(),
+                    direction: TransitionDirection.fromDiagBottomRight,
+                  ));
                 },
                 child: const Text("Classique (501 / 301)"),
               )
