@@ -5,6 +5,7 @@ import 'package:nine_dart_score/domain/entities/player/player.dart';
 import 'package:nine_dart_score/presentation/players/bloc/player_bloc.dart';
 import 'package:nine_dart_score/widgets/custom_button.dart';
 import 'package:nine_dart_score/widgets/custom_textfield.dart';
+import 'package:nine_dart_score/widgets/gaps.dart';
 
 class PlayerAddScreen extends StatefulWidget {
   const PlayerAddScreen({super.key});
@@ -25,7 +26,8 @@ class _PlayerAddScreenState extends State<PlayerAddScreen> {
     Colors.pink,
     Colors.purple,
   ];
-  Color _selectedColor = Colors.red;
+
+  Color? _selectedColor;
 
   @override
   Widget build(BuildContext context) {
@@ -37,60 +39,89 @@ class _PlayerAddScreenState extends State<PlayerAddScreen> {
           title: const Text("Ajouter un joueur"),
         ),
         body: SafeArea(
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(10),
-                child: CustomTextfield(
+          child: Padding(
+            padding: const EdgeInsets.all(10),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                CustomTextfield(
                   controller: nameController,
-                  labelText: "Nom",
+                  isMandatory: true,
+                  labelText: "Pseudo",
                   onChanged: (name) {
                     _playerBloc.add(PlayerNameChanged(playerName: name));
                   },
                 ),
-              ),
-              SizedBox(
-                height: 50,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: _playerColors.length,
-                  itemBuilder: (context, index) {
-                    final color = _playerColors[index];
-                    return GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          _selectedColor = color;
-                        });
-                        _playerBloc.add(PlayerColorChanged(playerColor: color));
-                      },
-                      child: CircleAvatar(
-                        backgroundColor: color,
-                        radius: _selectedColor == color ? 30 : 20,
+                Gaps.gapH10,
+                const Text(
+                  "Couleur",
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    decoration: TextDecoration.underline,
+                  ),
+                ),
+                SizedBox(
+                  height: 50,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: _playerColors.length,
+                    itemBuilder: (context, index) {
+                      final color = _playerColors[index];
+                      return Padding(
+                        padding: const EdgeInsets.all(2),
+                        child: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              _selectedColor = color;
+                            });
+                            _playerBloc.add(PlayerColorChanged(playerColor: color));
+                          },
+                          child: Stack(
+                            children: [
+                              CircleAvatar(
+                                backgroundColor: color,
+                                radius: 20,
+                              ),
+                              if (_selectedColor == color)
+                                const Positioned(
+                                  top: 5,
+                                  left: 5,
+                                  child: Icon(
+                                    Icons.check,
+                                    size: 30,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                const Spacer(),
+                BlocBuilder<PlayerBloc, PlayerState>(
+                  builder: (context, state) {
+                    return Padding(
+                      padding: const EdgeInsets.all(15),
+                      child: CustomButton(
+                        text: "Créer",
+                        isEnabled: state.isFormValid(),
+                        onPressed: () {
+                          final player = _createPlayer();
+
+                          _playerBloc.add(CreatePlayerEvent(playerEntity: player));
+
+                          Navigator.pop(context);
+                        },
                       ),
                     );
                   },
-                ),
-              ),
-              const Spacer(),
-              BlocBuilder<PlayerBloc, PlayerState>(
-                builder: (context, state) {
-                  return Padding(
-                    padding: const EdgeInsets.all(15),
-                    child: CustomButton(
-                      text: "Créer",
-                      isEnabled: state.isFormValid(),
-                      onPressed: () {
-                        final player = _createPlayer();
-
-                        _playerBloc.add(CreatePlayerEvent(playerEntity: player));
-
-                        Navigator.pop(context);
-                      },
-                    ),
-                  );
-                },
-              )
-            ],
+                )
+              ],
+            ),
           ),
         ),
       ),

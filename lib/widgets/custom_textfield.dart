@@ -7,6 +7,7 @@ class CustomTextfield extends StatelessWidget {
   final TextInputType keyboardType;
   final TextInputAction textInputAction;
   final Function(String)? onChanged;
+  final bool isMandatory;
 
   const CustomTextfield({
     super.key,
@@ -16,6 +17,7 @@ class CustomTextfield extends StatelessWidget {
     this.textInputAction = TextInputAction.next,
     this.keyboardType = TextInputType.text,
     this.onChanged,
+    this.isMandatory = false,
   });
 
   @override
@@ -26,7 +28,7 @@ class CustomTextfield extends StatelessWidget {
       keyboardType: keyboardType,
       textInputAction: textInputAction,
       decoration: InputDecoration(
-        labelText: labelText,
+        labelText: isMandatory ? "$labelText*" : labelText,
       ),
       textCapitalization: textCapitalization,
     );
