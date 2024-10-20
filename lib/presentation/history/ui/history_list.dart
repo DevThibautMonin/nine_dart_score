@@ -34,8 +34,8 @@ class HistoryList extends StatelessWidget {
                         onDelete: () {
                           _historyBloc.add(DeleteGameEvent(id: state.games[index].id ?? 0));
                         },
-                        onTap: () {
-                          Navigator.of(context).push(createRouteWithTransition(
+                        onTap: () async {
+                          await Navigator.of(context).push(createRouteWithTransition(
                             child: HistoryDetails(gameEntity: state.games[index]),
                             direction: TransitionDirection.fromDiagBottomRight,
                           ));

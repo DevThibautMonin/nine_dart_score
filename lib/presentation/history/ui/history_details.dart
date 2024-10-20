@@ -78,8 +78,8 @@ class HistoryDetails extends StatelessWidget {
                   itemBuilder: (context, index) {
                     final player = gameEntity.players?[index];
                     return GestureDetector(
-                      onTap: () {
-                        Navigator.of(context).push(createRouteWithTransition(
+                      onTap: () async {
+                        await Navigator.of(context).push(createRouteWithTransition(
                           child: HistoryPlayerStats(
                             game: gameEntity,
                             currentPlayer: player,

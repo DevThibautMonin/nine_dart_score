@@ -24,8 +24,8 @@ class _PlayerScreenState extends State<PlayerScreen> {
       child: Scaffold(
         floatingActionButton: FloatingActionButton(
           child: const Icon(Icons.person_add),
-          onPressed: () {
-            Navigator.of(context).push(
+          onPressed: () async {
+            await Navigator.of(context).push(
               createRouteWithTransition(
                 child: const PlayerAddScreen(),
                 direction: TransitionDirection.fromDiagBottomRight,

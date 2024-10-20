@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:nine_dart_score/widgets/gaps.dart';
 
 class HistoryItem extends StatelessWidget {

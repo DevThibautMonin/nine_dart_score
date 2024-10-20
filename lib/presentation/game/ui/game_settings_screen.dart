@@ -106,8 +106,8 @@ class _GameSettingsScreenState extends State<GameSettingsScreen> {
                     return CustomButton(
                       isEnabled: state.isFormValid(),
                       text: "Commencer",
-                      onPressed: () {
-                        Navigator.of(context).push(
+                      onPressed: () async {
+                        await Navigator.of(context).pushAndRemoveUntil(
                           createRouteWithTransition(
                             direction: TransitionDirection.fromDiagBottomRight,
                             child: GameScreen(
@@ -117,6 +117,7 @@ class _GameSettingsScreenState extends State<GameSettingsScreen> {
                                 ),
                             ),
                           ),
+                          (Route route) => false,
                         );
                       },
                     );

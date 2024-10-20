@@ -11,7 +11,7 @@ class GameLocalDatasource {
   Future<void> deleteGame(int gameId) async {
     final db = await database.database;
 
-    db.writeTxn(() async {
+    await db.writeTxn(() async {
       await db.games.delete(gameId);
     });
   }

@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:nine_dart_score/core/commons/constants.dart';
 import 'package:nine_dart_score/presentation/game/ui/game_settings_screen.dart';
@@ -69,8 +67,8 @@ class _DashboardScreenState extends State<DashboardScreen> with SingleTickerProv
                 ),
               ),
               OutlinedButton(
-                onPressed: () {
-                  Navigator.of(context).push(createRouteWithTransition(
+                onPressed: () async {
+                  await Navigator.of(context).push(createRouteWithTransition(
                     child: const GameSettingsScreen(),
                     direction: TransitionDirection.fromDiagBottomRight,
                   ));
