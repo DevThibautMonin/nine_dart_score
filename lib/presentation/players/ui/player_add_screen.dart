@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nine_dart_score/core/commons/constants.dart';
 import 'package:nine_dart_score/core/di/get_it_setup.dart';
 import 'package:nine_dart_score/domain/entities/player/player.dart';
 import 'package:nine_dart_score/presentation/players/bloc/player_bloc.dart';
@@ -25,6 +26,10 @@ class _PlayerAddScreenState extends State<PlayerAddScreen> {
     Colors.orange,
     Colors.pink,
     Colors.purple,
+    Colors.indigo,
+    Colors.cyan,
+    Colors.lime,
+    Colors.amber,
   ];
 
   Color? _selectedColor;
@@ -55,23 +60,23 @@ class _PlayerAddScreenState extends State<PlayerAddScreen> {
                 ),
                 Gaps.gapH10,
                 const Text(
-                  "Couleur",
+                  "Couleur*",
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
-                    decoration: TextDecoration.underline,
                   ),
                 ),
+                Gaps.gapH10,
                 SizedBox(
-                  height: 50,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: _playerColors.length,
-                    itemBuilder: (context, index) {
-                      final color = _playerColors[index];
-                      return Padding(
-                        padding: const EdgeInsets.all(2),
-                        child: GestureDetector(
+                  height: 100,
+                  child: Wrap(
+                    spacing: 8,
+                    runSpacing: 8,
+                    children: List.generate(
+                      _playerColors.length,
+                      (index) {
+                        final color = _playerColors[index];
+                        return GestureDetector(
                           onTap: () {
                             setState(() {
                               _selectedColor = color;
@@ -96,9 +101,9 @@ class _PlayerAddScreenState extends State<PlayerAddScreen> {
                                 ),
                             ],
                           ),
-                        ),
-                      );
-                    },
+                        );
+                      },
+                    ),
                   ),
                 ),
                 const Spacer(),
@@ -107,7 +112,7 @@ class _PlayerAddScreenState extends State<PlayerAddScreen> {
                     return Padding(
                       padding: const EdgeInsets.all(15),
                       child: CustomButton(
-                        text: "Créer",
+                        text: Constants.create,
                         isEnabled: state.isFormValid(),
                         onPressed: () {
                           final player = _createPlayer();
