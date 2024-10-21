@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nine_dart_score/core/commons/constants.dart';
 import 'package:nine_dart_score/core/di/get_it_setup.dart';
 import 'package:nine_dart_score/domain/enums/classic_game_enum.dart';
 import 'package:nine_dart_score/presentation/game/bloc/game_bloc.dart';
@@ -47,8 +48,9 @@ class _GameSettingsScreenState extends State<GameSettingsScreen> {
                     _gameBloc.add(GameNameChangedEvent(gameName: value));
                   },
                 ),
+                Gaps.gapH15,
                 const Text(
-                  "Nombre de points",
+                  "Nombre de points à faire",
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
                 Row(
@@ -67,7 +69,7 @@ class _GameSettingsScreenState extends State<GameSettingsScreen> {
                 ),
                 Gaps.gapH15,
                 const Text(
-                  "Joueurs",
+                  Constants.players,
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
                 BlocBuilder<GameBloc, GameState>(
@@ -105,7 +107,7 @@ class _GameSettingsScreenState extends State<GameSettingsScreen> {
                   builder: (context, state) {
                     return CustomButton(
                       isEnabled: state.isFormValid(),
-                      text: "Commencer",
+                      text: Constants.start,
                       onPressed: () async {
                         await Navigator.of(context).pushAndRemoveUntil(
                           createRouteWithTransition(
