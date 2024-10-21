@@ -59,3 +59,11 @@ class NextPlayerEvent extends GameEvent {
     this.thirdThrow = 0,
   });
 }
+
+class DeleteGameEvent extends GameEvent {
+  final int? gameId;
+
+  DeleteGameEvent({
+    this.gameId,
+  });
+}
