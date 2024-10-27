@@ -67,3 +67,27 @@ class DeleteGameEvent extends GameEvent {
     this.gameId,
   });
 }
+
+class UpdateFirstScore extends GameEvent {
+  final int? score;
+
+  UpdateFirstScore({
+    this.score,
+  });
+}
+
+class UpdateSecondScore extends GameEvent {
+  final int? score;
+
+  UpdateSecondScore({
+    this.score,
+  });
+}
+
+class UpdateThirdScore extends GameEvent {
+  final int? score;
+
+  UpdateThirdScore({
+    this.score,
+  });
+}

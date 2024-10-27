@@ -11,6 +11,11 @@ class GameState with GameStateMappable {
   final int currentPlayerIndex;
   final List<ThrowEntity>? throws;
   final int turnNumber;
+  final bool hasGameEnded;
+  final PlayerEntity? winner;
+  final int? firstScore;
+  final int? secondScore;
+  final int? thirdScore;
 
   // Data validation
   final String gameName;
@@ -26,6 +31,11 @@ class GameState with GameStateMappable {
     this.gameName = "",
     this.throws,
     this.turnNumber = 1,
+    this.hasGameEnded = false,
+    this.winner,
+    this.firstScore,
+    this.secondScore,
+    this.thirdScore,
   });
 
   bool isFormValid() {
