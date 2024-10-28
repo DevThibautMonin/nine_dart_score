@@ -1,16 +1,13 @@
-import 'package:dart_mappable/dart_mappable.dart';
 import 'package:nine_dart_score/domain/entities/player/player.dart';
 import 'package:nine_dart_score/domain/entities/turn/turn.dart';
 
-part 'game.mapper.dart';
-
-@MappableClass()
-class GameEntity with GameEntityMappable {
+class GameEntity {
   final int? id;
   final String? name;
   final List<PlayerEntity>? players;
   final int targetScore;
   final List<TurnEntity>? turns;
+  final int? turnNumber;
 
   GameEntity({
     this.id,
@@ -18,5 +15,6 @@ class GameEntity with GameEntityMappable {
     required this.targetScore,
     this.turns,
     this.name,
+    this.turnNumber,
   });
 }

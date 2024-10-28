@@ -60,7 +60,7 @@ class HistoryDetails extends StatelessWidget {
               Gaps.gapH20,
               HistoryDetailsItem(
                 title: "Nombre de tours",
-                data: "${gameEntity.turns!.length ~/ 2}",
+                data: "${gameEntity.turnNumber}",
               ),
               Gaps.gapH20,
               const Text(

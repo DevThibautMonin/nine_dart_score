@@ -1,10 +1,6 @@
-import 'package:dart_mappable/dart_mappable.dart';
 import 'package:flutter/material.dart';
 
-part 'player.mapper.dart';
-
-@MappableClass()
-class PlayerEntity with PlayerEntityMappable {
+class PlayerEntity {
   final int? id;
   final String? name;
   final int? score;

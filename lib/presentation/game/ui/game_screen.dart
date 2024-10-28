@@ -43,7 +43,7 @@ class GameScreen extends StatelessWidget {
             automaticallyImplyLeading: false,
             title: BlocBuilder<GameBloc, GameState>(
               builder: (context, state) {
-                return Text("${gameBloc.state.game?.name} ${state.firstScore}");
+                return Text("${gameBloc.state.game?.name}");
               },
             ),
             actions: [

@@ -13,6 +13,7 @@ class Game {
   List<PlayerEmbedded>? players;
   int targetScore;
   List<Turn>? turns;
+  int? turnNumber;
 
   Game({
     this.id,
@@ -20,5 +21,6 @@ class Game {
     this.players,
     required this.targetScore,
     this.turns,
+    this.turnNumber,
   });
 }

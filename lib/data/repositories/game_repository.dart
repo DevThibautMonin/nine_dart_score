@@ -26,9 +26,15 @@ class GameRepository {
     }
   }
 
-  Future<GameEntity?> updateGame(int gameId, int playerId, int newScore, TurnEntity turn) async {
+  Future<GameEntity?> updateGame(int gameId, int playerId, int newScore, TurnEntity turn, int turnNumber) async {
     var mappedTurn = TurnMapper.toData(turn);
-    var result = await _gameLocalDatasource.updateGame(gameId, playerId, newScore, mappedTurn);
+    var result = await _gameLocalDatasource.updateGame(
+      gameId,
+      playerId,
+      newScore,
+      mappedTurn,
+      turnNumber,
+    );
     if (result != null) {
       return GameMapper.toEntity(result);
     } else {

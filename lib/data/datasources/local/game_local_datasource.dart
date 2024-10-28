@@ -34,7 +34,7 @@ class GameLocalDatasource {
     });
   }
 
-  Future<Game?> updateGame(int gameId, int playerId, int newScore, Turn turn) async {
+  Future<Game?> updateGame(int gameId, int playerId, int newScore, Turn turn, int turnNumber) async {
     final db = await database.database;
     return db.writeTxn(() async {
       var game = await db.games.get(gameId);
@@ -42,6 +42,7 @@ class GameLocalDatasource {
         var currentTurns = game.turns?.toList();
         currentTurns?.add(turn);
         game.turns = currentTurns;
+        game.turnNumber = turnNumber;
         for (var player in game.players!) {
           if (player.id == playerId) {
             player.score = newScore;
