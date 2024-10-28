@@ -7,6 +7,7 @@ import 'package:nine_dart_score/domain/entities/player/player.dart';
 import 'package:nine_dart_score/domain/entities/throw/throw.dart';
 import 'package:nine_dart_score/domain/entities/turn/turn.dart';
 import 'package:nine_dart_score/domain/usecases/game/create_game_usecase.dart';
+import 'package:nine_dart_score/domain/usecases/game/delete_game_usecase.dart';
 import 'package:nine_dart_score/domain/usecases/player/get_players_usecase.dart';
 
 part 'game_event.dart';
@@ -17,6 +18,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   final GetPlayersUsecase _getPlayersUsecase = getIt.get();
   final CreateGameUsecase _createGameUsecase = getIt.get();
   final GameRepository _gameRepository = getIt.get();
+  final DeleteGameUsecase _deleteGameUsecase = getIt.get();
 
   GameBloc() : super(const GameState()) {
     on<GetGameData>((event, emit) async {
@@ -76,21 +78,54 @@ class GameBloc extends Bloc<GameEvent, GameState> {
         currentPlayerNewScore = currentPlayerScore - totalScore;
       }
 
-      var result = await _gameRepository.updateGame(state.game?.id ?? 0, currentPlayer?.id ?? 0, currentPlayerNewScore, turn);
+      var result = await _gameRepository.updateGame(
+        state.game?.id ?? 0,
+        currentPlayer?.id ?? 0,
+        currentPlayerNewScore,
+        turn,
+        state.turnNumber,
+      );
 
-      var newIndex = state.currentPlayerIndex + 1;
-      final maxIndex = state.players.length;
+      if (currentPlayerNewScore <= 0) {
+        emit(state.copyWith(
+          hasGameEnded: true,
+          winner: currentPlayer,
+        ));
+      } else {
+        var newIndex = state.currentPlayerIndex + 1;
+        final maxIndex = state.players.length;
 
-      if (newIndex >= maxIndex) {
-        newIndex = 0;
-        var newTurnNumber = turnNumber + 1;
-        emit(state.copyWith(turnNumber: newTurnNumber));
+        if (newIndex >= maxIndex) {
+          newIndex = 0;
+          var newTurnNumber = turnNumber + 1;
+          emit(state.copyWith(turnNumber: newTurnNumber));
+        }
+
+        emit(state.copyWith(
+          currentPlayerIndex: newIndex,
+          game: result,
+          hasGameEnded: false,
+          firstScore: null,
+          secondScore: null,
+          thirdScore: null,
+        ));
       }
+    });
 
-      emit(state.copyWith(
-        currentPlayerIndex: newIndex,
-        game: result,
-      ));
+    on<DeleteGameEvent>((event, emit) async {
+      await _deleteGameUsecase(event.gameId ?? 0);
+    });
+
+    on<UpdateFirstScore>((event, emit) {
+      emit(state.copyWith(firstScore: event.score));
+    });
+
+    on<UpdateSecondScore>((event, emit) {
+      emit(state.copyWith(secondScore: event.score));
+    });
+
+    on<UpdateThirdScore>((event, emit) {
+      emit(state.copyWith(thirdScore: event.score));
     });
   }
 }
