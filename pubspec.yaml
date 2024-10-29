@@ -1,5 +1,5 @@
 name: nine_dart_score
-description: "A new Flutter project."
+description: "Application de fléchettes permettant aux joueurs de compter facilement leurs scores et de suivre leur progression."
 publish_to: 'none'
 version: 1.0.0+1
 
