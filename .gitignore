@@ -38,3 +38,4 @@ devtools_options.yaml
 .idea/
 .vscode/
 ios/Flutter/Debug.xcconfig
+keystore.properties
