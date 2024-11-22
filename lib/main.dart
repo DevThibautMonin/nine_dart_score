@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:nine_dart_score/core/commons/constants.dart';
 import 'package:nine_dart_score/core/di/get_it_setup.dart';
 import 'package:nine_dart_score/presentation/tabs_screen/tabs_screen.dart';
 import 'package:nine_dart_score/themes/dark_theme.dart';
 import 'package:nine_dart_score/themes/light_theme.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]);
   setupGetIt();
   runApp(const MyApp());
 }
