@@ -29,6 +29,7 @@ class PlayerBloc extends Bloc<PlayerEvent, PlayerState> {
         playerStatus: PlayerStatus.loaded,
         players: players,
         playerName: "",
+        playerColor: null,
       ));
     });
 

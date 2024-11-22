@@ -32,8 +32,6 @@ class _PlayerAddScreenState extends State<PlayerAddScreen> {
     Colors.amber,
   ];
 
-  Color? _selectedColor;
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
@@ -78,28 +76,29 @@ class _PlayerAddScreenState extends State<PlayerAddScreen> {
                         final color = _playerColors[index];
                         return GestureDetector(
                           onTap: () {
-                            setState(() {
-                              _selectedColor = color;
-                            });
                             _playerBloc.add(PlayerColorChanged(playerColor: color));
                           },
-                          child: Stack(
-                            children: [
-                              CircleAvatar(
-                                backgroundColor: color,
-                                radius: 20,
-                              ),
-                              if (_selectedColor == color)
-                                const Positioned(
-                                  top: 5,
-                                  left: 5,
-                                  child: Icon(
-                                    Icons.check,
-                                    size: 30,
-                                    color: Colors.white,
+                          child: BlocBuilder<PlayerBloc, PlayerState>(
+                            builder: (context, state) {
+                              return Stack(
+                                children: [
+                                  CircleAvatar(
+                                    backgroundColor: color,
+                                    radius: 20,
                                   ),
-                                ),
-                            ],
+                                  if (state.playerColor == color)
+                                    const Positioned(
+                                      top: 5,
+                                      left: 5,
+                                      child: Icon(
+                                        Icons.check,
+                                        size: 30,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                ],
+                              );
+                            },
                           ),
                         );
                       },
@@ -136,7 +135,7 @@ class _PlayerAddScreenState extends State<PlayerAddScreen> {
   PlayerEntity _createPlayer() {
     final player = PlayerEntity(
       name: nameController.text,
-      color: _selectedColor,
+      color: _playerBloc.state.playerColor,
     );
     return player;
   }
