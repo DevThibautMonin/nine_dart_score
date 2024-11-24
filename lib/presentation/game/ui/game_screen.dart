@@ -96,7 +96,9 @@ class GameScreen extends StatelessWidget {
                                     gameBloc.add(DeleteGameEvent(gameId: gameBloc.state.game?.id));
                                     await Navigator.of(context).pushAndRemoveUntil(
                                       createRouteWithTransition(
-                                        child: const TabsScreen(),
+                                        child: const TabsScreen(
+                                          selectedTabIndex: 0,
+                                        ),
                                         direction: TransitionDirection.fromBottom,
                                       ),
                                       (Route route) => false,

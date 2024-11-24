@@ -3,7 +3,7 @@ part of 'game_bloc.dart';
 sealed class GameEvent {}
 
 class SelectTargetScore extends GameEvent {
-  final int? targetScore;
+  final ClassicGameEnum? targetScore;
 
   SelectTargetScore({
     this.targetScore,

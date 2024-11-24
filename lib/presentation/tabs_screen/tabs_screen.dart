@@ -6,20 +6,31 @@ import 'package:nine_dart_score/presentation/history/ui/history_screen.dart';
 import 'package:nine_dart_score/presentation/players/ui/player_screen.dart';
 
 class TabsScreen extends StatefulWidget {
-  const TabsScreen({super.key});
+  final int selectedTabIndex;
+
+  const TabsScreen({
+    super.key,
+    required this.selectedTabIndex,
+  });
 
   @override
   State<TabsScreen> createState() => _TabsScreenState();
 }
 
 class _TabsScreenState extends State<TabsScreen> {
-  int _selectedIndex = 0;
+  late int _selectedIndex;
 
   static const _screens = [
     DashboardScreen(),
     HistoryScreen(),
     PlayerScreen(),
   ];
+
+  @override
+  void initState() {
+    _selectedIndex = widget.selectedTabIndex;
+    super.initState();
+  }
 
   void _onItemTapped(int index) {
     setState(() {

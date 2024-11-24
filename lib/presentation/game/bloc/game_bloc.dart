@@ -6,6 +6,7 @@ import 'package:nine_dart_score/domain/entities/game/game.dart';
 import 'package:nine_dart_score/domain/entities/player/player.dart';
 import 'package:nine_dart_score/domain/entities/throw/throw.dart';
 import 'package:nine_dart_score/domain/entities/turn/turn.dart';
+import 'package:nine_dart_score/domain/enums/classic_game_enum.dart';
 import 'package:nine_dart_score/domain/usecases/game/create_game_usecase.dart';
 import 'package:nine_dart_score/domain/usecases/game/delete_game_usecase.dart';
 import 'package:nine_dart_score/domain/usecases/player/get_players_usecase.dart';
@@ -48,7 +49,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
 
     on<StartGameEvent>((event, emit) async {
       var players = state.players;
-      var game = GameEntity(players: players, targetScore: state.targetScore ?? 0, name: event.gameName, turns: []);
+      var game = GameEntity(players: players, targetScore: state.targetScore.score, name: event.gameName, turns: []);
       var newGame = await _createGameUsecase(game);
 
       emit(state.copyWith(

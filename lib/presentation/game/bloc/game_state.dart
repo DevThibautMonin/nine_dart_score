@@ -6,10 +6,10 @@ enum GameStatus { initial }
 class GameState with GameStateMappable {
   final GameStatus gameStatus;
   final GameEntity? game;
-  final List<PlayerEntity>? allPlayers;
-  final int? targetScore;
+  final List<PlayerEntity> allPlayers;
+  final ClassicGameEnum targetScore;
   final int currentPlayerIndex;
-  final List<ThrowEntity>? throws;
+  final List<ThrowEntity> throws;
   final int turnNumber;
   final bool hasGameEnded;
   final PlayerEntity? winner;
@@ -24,12 +24,12 @@ class GameState with GameStateMappable {
   const GameState({
     this.gameStatus = GameStatus.initial,
     this.players = const [],
-    this.allPlayers,
-    this.targetScore,
+    this.allPlayers = const [],
+    this.targetScore = ClassicGameEnum.points301,
     this.currentPlayerIndex = 0,
     this.game,
     this.gameName = "",
-    this.throws,
+    this.throws = const [],
     this.turnNumber = 1,
     this.hasGameEnded = false,
     this.winner,
@@ -39,6 +39,6 @@ class GameState with GameStateMappable {
   });
 
   bool isFormValid() {
-    return targetScore != null && gameName.isNotEmpty && players.isNotEmpty;
+    return gameName.isNotEmpty && players.isNotEmpty;
   }
 }

@@ -59,7 +59,9 @@ class VictoryScreen extends StatelessWidget {
                       onPressed: () async {
                         await Navigator.of(context).pushAndRemoveUntil(
                           createRouteWithTransition(
-                            child: const TabsScreen(),
+                            child: const TabsScreen(
+                              selectedTabIndex: 0,
+                            ),
                             direction: TransitionDirection.fromBottom,
                           ),
                           (Route route) => false,
@@ -74,7 +76,9 @@ class VictoryScreen extends StatelessWidget {
                       onPressed: () async {
                         await Navigator.of(context).pushAndRemoveUntil(
                           createRouteWithTransition(
-                            child: const TabsScreen(),
+                            child: const TabsScreen(
+                              selectedTabIndex: 1,
+                            ),
                             direction: TransitionDirection.fromBottom,
                           ),
                           (Route route) => false,

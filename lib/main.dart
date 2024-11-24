@@ -27,7 +27,9 @@ class MyApp extends StatelessWidget {
       darkTheme: darkTheme,
       home: const Scaffold(
         body: SafeArea(
-          child: TabsScreen(),
+          child: TabsScreen(
+            selectedTabIndex: 0,
+          ),
         ),
       ),
     );
