@@ -74,7 +74,7 @@ class _DashboardScreenState extends State<DashboardScreen> with SingleTickerProv
                   ));
                 },
                 child: const Text("Classique (501 / 301)"),
-              )
+              ),
             ],
           ),
         ),

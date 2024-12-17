@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "953336269887",
+    "project_id": "nine-dart-score",
+    "storage_bucket": "nine-dart-score.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:953336269887:android:b84c1cb522fbfb0a8cbc8a",
+        "android_client_info": {
+          "package_name": "com.nine_dart_score.nine_dart_score"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAXjaTx9hINTZR553JR_r959Z0iSO7-K70"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
