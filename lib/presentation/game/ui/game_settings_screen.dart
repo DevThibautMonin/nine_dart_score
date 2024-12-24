@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nine_dart_score/core/commons/constants.dart';
-import 'package:nine_dart_score/core/di/get_it_setup.dart';
+import 'package:nine_dart_score/core/di/injectable.dart';
 import 'package:nine_dart_score/domain/enums/classic_game_enum.dart';
 import 'package:nine_dart_score/presentation/game/bloc/game_bloc.dart';
 import 'package:nine_dart_score/presentation/game/ui/empty_players_screen.dart';
@@ -21,13 +21,13 @@ class GameSettingsScreen extends StatefulWidget {
 }
 
 class _GameSettingsScreenState extends State<GameSettingsScreen> {
-  final GameBloc _gameBloc = getIt.get();
+  final GameBloc gameBloc = getIt.get();
   final TextEditingController _gameNameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
-      value: _gameBloc
+      value: gameBloc
         ..add(GetGameData())
         ..add(SelectTargetScore(targetScore: ClassicGameEnum.points301)),
       child: Scaffold(
@@ -50,7 +50,7 @@ class _GameSettingsScreenState extends State<GameSettingsScreen> {
                         controller: _gameNameController,
                         labelText: "Nom de la partie*",
                         onChanged: (value) {
-                          _gameBloc.add(GameNameChangedEvent(gameName: value));
+                          gameBloc.add(GameNameChangedEvent(gameName: value));
                         },
                       ),
                       Gaps.gapH15,
@@ -67,7 +67,7 @@ class _GameSettingsScreenState extends State<GameSettingsScreen> {
                                 label: gameType.score.toString(),
                                 isSelected: state.targetScore == gameType,
                                 onSelected: () {
-                                  _gameBloc.add(SelectTargetScore(targetScore: gameType));
+                                  gameBloc.add(SelectTargetScore(targetScore: gameType));
                                 },
                               );
                             },
@@ -96,9 +96,9 @@ class _GameSettingsScreenState extends State<GameSettingsScreen> {
                                     isSelected: isSelected,
                                     onSelected: (selected) {
                                       if (selected) {
-                                        _gameBloc.add(AddPlayerEvent(player: allPlayers[index]));
+                                        gameBloc.add(AddPlayerEvent(player: allPlayers[index]));
                                       } else {
-                                        _gameBloc.add(RemovePlayerEvent(player: allPlayers[index]));
+                                        gameBloc.add(RemovePlayerEvent(player: allPlayers[index]));
                                       }
                                     },
                                   );
@@ -121,7 +121,7 @@ class _GameSettingsScreenState extends State<GameSettingsScreen> {
                                 createRouteWithTransition(
                                   direction: TransitionDirection.fromDiagBottomRight,
                                   child: GameScreen(
-                                    gameBloc: _gameBloc
+                                    gameBloc: gameBloc
                                       ..add(
                                         StartGameEvent(gameName: _gameNameController.text),
                                       ),

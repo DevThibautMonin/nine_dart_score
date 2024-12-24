@@ -1,10 +1,15 @@
-import 'package:nine_dart_score/core/di/get_it_setup.dart';
+import 'package:injectable/injectable.dart';
 import 'package:nine_dart_score/data/repositories/player_repository.dart';
 
+@LazySingleton()
 class DeletePlayerUsecase {
-  final PlayerRepository _playerRepository = getIt.get();
+  final PlayerRepository playerRepository;
+
+  const DeletePlayerUsecase({
+    required this.playerRepository,
+  });
 
   Future call(int playerId) async {
-    await _playerRepository.deletePlayer(playerId);
+    await playerRepository.deletePlayer(playerId);
   }
 }

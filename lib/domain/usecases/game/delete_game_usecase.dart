@@ -1,10 +1,15 @@
-import 'package:nine_dart_score/core/di/get_it_setup.dart';
+import 'package:injectable/injectable.dart';
 import 'package:nine_dart_score/data/repositories/game_repository.dart';
 
+@Injectable()
 class DeleteGameUsecase {
-  final GameRepository _gameRepository = getIt.get();
+  final GameRepository gameRepository;
+
+  const DeleteGameUsecase({
+    required this.gameRepository,
+  });
 
   Future<void> call(int gameId) async {
-    await _gameRepository.deleteGame(gameId);
+    await gameRepository.deleteGame(gameId);
   }
 }

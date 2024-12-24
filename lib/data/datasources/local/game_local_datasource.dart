@@ -1,12 +1,17 @@
+import 'package:injectable/injectable.dart';
 import 'package:isar/isar.dart';
-import 'package:nine_dart_score/core/di/get_it_setup.dart';
 import 'package:nine_dart_score/data/database.dart';
 import 'package:nine_dart_score/data/entities/game/game.dart';
 import 'package:nine_dart_score/data/entities/player/player_embedded.dart';
 import 'package:nine_dart_score/data/entities/turn/turn.dart';
 
+@Injectable()
 class GameLocalDatasource {
-  Database database = getIt.get();
+  final Database database;
+
+  const GameLocalDatasource({
+    required this.database,
+  });
 
   Future<void> deleteGame(int gameId) async {
     final db = await database.database;

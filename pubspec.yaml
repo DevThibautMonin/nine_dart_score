@@ -21,12 +21,14 @@ dependencies:
   google_fonts: ^6.2.1
   firebase_core: ^3.4.0
   firebase_crashlytics: ^4.1.0
+  injectable: ^2.4.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^3.0.0
   isar_generator: ^3.1.0+1
+  injectable_generator: 
   build_runner: ^2.4.9
   dart_mappable_builder: ^4.2.3
 flutter:

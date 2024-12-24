@@ -1,7 +1,7 @@
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nine_dart_score/core/di/get_it_setup.dart';
+import 'package:injectable/injectable.dart';
 import 'package:nine_dart_score/domain/entities/player/player.dart';
 import 'package:nine_dart_score/domain/usecases/player/create_player_usecase.dart';
 import 'package:nine_dart_score/domain/usecases/player/delete_player_usecase.dart';
@@ -11,19 +11,24 @@ part 'player_event.dart';
 part 'player_state.dart';
 part 'player_bloc.mapper.dart';
 
+@LazySingleton()
 class PlayerBloc extends Bloc<PlayerEvent, PlayerState> {
-  final GetPlayersUsecase _getPlayersUsecase = getIt.get();
-  final DeletePlayerUsecase _deletePlayerUsecase = getIt.get();
-  final CreatePlayerUsecase _createPlayerUsecase = getIt.get();
+  final GetPlayersUsecase getPlayersUsecase;
+  final DeletePlayerUsecase deletePlayerUsecase;
+  final CreatePlayerUsecase createPlayerUsecase;
 
-  PlayerBloc() : super(const PlayerState()) {
+  PlayerBloc({
+    required this.getPlayersUsecase,
+    required this.createPlayerUsecase,
+    required this.deletePlayerUsecase,
+  }) : super(const PlayerState()) {
     on<CreatePlayerEvent>((event, emit) async {
       emit(state.copyWith(playerStatus: PlayerStatus.loading));
 
       final player = event.playerEntity;
 
-      await _createPlayerUsecase(player);
-      final players = await _getPlayersUsecase();
+      await createPlayerUsecase(player);
+      final players = await getPlayersUsecase();
 
       emit(state.copyWith(
         playerStatus: PlayerStatus.loaded,
@@ -36,7 +41,7 @@ class PlayerBloc extends Bloc<PlayerEvent, PlayerState> {
     on<GetPlayersEvent>((event, emit) async {
       emit(state.copyWith(playerStatus: PlayerStatus.loading));
 
-      final players = await _getPlayersUsecase();
+      final players = await getPlayersUsecase();
 
       emit(state.copyWith(
         players: players,
@@ -47,8 +52,8 @@ class PlayerBloc extends Bloc<PlayerEvent, PlayerState> {
     on<DeletePlayerEvent>((event, emit) async {
       emit(state.copyWith(playerStatus: PlayerStatus.loading));
 
-      await _deletePlayerUsecase(event.playerId);
-      final players = await _getPlayersUsecase();
+      await deletePlayerUsecase(event.playerId);
+      final players = await getPlayersUsecase();
 
       emit(state.copyWith(
         playerStatus: PlayerStatus.loaded,

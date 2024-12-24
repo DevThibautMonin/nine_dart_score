@@ -1,10 +1,15 @@
+import 'package:injectable/injectable.dart';
 import 'package:isar/isar.dart';
-import 'package:nine_dart_score/core/di/get_it_setup.dart';
 import 'package:nine_dart_score/data/database.dart';
 import 'package:nine_dart_score/data/entities/player/player.dart';
 
+@LazySingleton()
 class PlayerLocalDatasource {
-  Database database = getIt.get();
+  final Database database;
+
+  const PlayerLocalDatasource({
+    required this.database,
+  });
 
   Future createPlayer(Player player) async {
     final db = await database.database;

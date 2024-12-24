@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nine_dart_score/core/commons/constants.dart';
-import 'package:nine_dart_score/core/di/get_it_setup.dart';
+import 'package:nine_dart_score/core/di/injectable.dart';
 import 'package:nine_dart_score/firebase_options.dart';
 import 'package:nine_dart_score/presentation/tabs_screen/tabs_screen.dart';
 import 'package:nine_dart_score/themes/dark_theme.dart';
@@ -27,7 +27,7 @@ void main() async {
     return true;
   };
 
-  setupGetIt();
+  configureDependencies();
   runApp(const MyApp());
 }
 

@@ -33,6 +33,7 @@ devtools_options.yaml
 *.g.dart
 *.mapper.dart
 .fvm
+*.config.dart
 
 # Ignore IDE
 .idea/

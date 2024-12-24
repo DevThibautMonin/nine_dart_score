@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
-import 'package:nine_dart_score/core/di/get_it_setup.dart';
+import 'package:nine_dart_score/core/di/injectable.dart';
 import 'package:nine_dart_score/presentation/history/bloc/history_bloc.dart';
 import 'package:nine_dart_score/presentation/history/ui/history_details.dart';
 import 'package:nine_dart_score/presentation/history/ui/history_item.dart';

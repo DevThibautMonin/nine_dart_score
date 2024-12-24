@@ -1,6 +1,6 @@
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nine_dart_score/core/di/get_it_setup.dart';
+import 'package:injectable/injectable.dart';
 import 'package:nine_dart_score/data/repositories/game_repository.dart';
 import 'package:nine_dart_score/domain/entities/game/game.dart';
 import 'package:nine_dart_score/domain/entities/player/player.dart';
@@ -15,15 +15,21 @@ part 'game_event.dart';
 part 'game_state.dart';
 part 'game_bloc.mapper.dart';
 
+@Injectable()
 class GameBloc extends Bloc<GameEvent, GameState> {
-  final GetPlayersUsecase _getPlayersUsecase = getIt.get();
-  final CreateGameUsecase _createGameUsecase = getIt.get();
-  final GameRepository _gameRepository = getIt.get();
-  final DeleteGameUsecase _deleteGameUsecase = getIt.get();
+  final GetPlayersUsecase getPlayersUsecase;
+  final CreateGameUsecase createGameUsecase;
+  final GameRepository gameRepository;
+  final DeleteGameUsecase deleteGameUsecase;
 
-  GameBloc() : super(const GameState()) {
+  GameBloc({
+    required this.createGameUsecase,
+    required this.deleteGameUsecase,
+    required this.gameRepository,
+    required this.getPlayersUsecase,
+  }) : super(const GameState()) {
     on<GetGameData>((event, emit) async {
-      final allPlayers = await _getPlayersUsecase();
+      final allPlayers = await getPlayersUsecase();
       emit(state.copyWith(allPlayers: allPlayers));
     });
 
@@ -50,7 +56,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     on<StartGameEvent>((event, emit) async {
       var players = state.players;
       var game = GameEntity(players: players, targetScore: state.targetScore.score, name: event.gameName, turns: []);
-      var newGame = await _createGameUsecase(game);
+      var newGame = await createGameUsecase(game);
 
       emit(state.copyWith(
         currentPlayerIndex: 0,
@@ -79,7 +85,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
         currentPlayerNewScore = currentPlayerScore - totalScore;
       }
 
-      var result = await _gameRepository.updateGame(
+      var result = await gameRepository.updateGame(
         state.game?.id ?? 0,
         currentPlayer?.id ?? 0,
         currentPlayerNewScore,
@@ -114,7 +120,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     });
 
     on<DeleteGameEvent>((event, emit) async {
-      await _deleteGameUsecase(event.gameId ?? 0);
+      await deleteGameUsecase(event.gameId ?? 0);
     });
 
     on<UpdateFirstScore>((event, emit) {
