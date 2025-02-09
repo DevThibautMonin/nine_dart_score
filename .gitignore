@@ -32,7 +32,6 @@ devtools_options.yaml
 # Ignore generated files
 *.g.dart
 *.mapper.dart
-.fvm
 *.config.dart
 
 # Ignore IDE
@@ -40,3 +39,6 @@ devtools_options.yaml
 .vscode/
 ios/Flutter/Debug.xcconfig
 keystore.properties
+
+# FVM Version Cache
+.fvm/
