@@ -28,8 +28,6 @@ Route createRouteWithTransition({
         return const Offset(-1.0, -1.0);
       case TransitionDirection.fromDiagBottomRight:
         return const Offset(1.0, 1.0);
-      default:
-        return Offset.zero;
     }
   }
 
