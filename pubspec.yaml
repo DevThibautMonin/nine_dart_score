@@ -18,8 +18,6 @@ dependencies:
   lottie: ^3.3.3
   flutter_launcher_icons: ^0.14.4
   google_fonts: ^8.0.2
-  firebase_core: ^4.7.0
-  firebase_crashlytics: ^5.2.0
   injectable: ^3.0.0
 
 dev_dependencies:
