@@ -1,4 +1,6 @@
 include: package:flutter_lints/flutter.yaml
+formatter: 
+  trailing_commas: preserve
 linter:
   rules:
     avoid_print: true
@@ -8,3 +10,7 @@ linter:
     unawaited_futures: true
     avoid_void_async: true
     discarded_futures: true
+    exhaustive_cases: true
+analyzer:
+  exclude:
+    - packages/**
