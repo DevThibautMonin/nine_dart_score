@@ -46,12 +46,12 @@ jobs:
           storePassword=$STORE_PASSWORD
           EOF
 
-      - name: Build release APK
-        run: flutter build apk --release
+      - name: Build release AAB
+        run: flutter build appbundle --release
 
-      - name: Upload APK
+      - name: Upload AAB
         uses: actions/upload-artifact@v4
         with:
-          name: release-apk
-          path: build/app/outputs/flutter-apk/app-release.apk
+          name: release-aab
+          path: build/app/outputs/bundle/release/app-release.aab
           retention-days: 7
