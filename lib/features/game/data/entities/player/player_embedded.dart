@@ -1,16 +1,10 @@
-import 'package:isar/isar.dart';
-
-part 'player_embedded.g.dart';
-
-@Embedded()
-@Name("PlayerEmbedded")
 class PlayerEmbedded {
-  int? id;
-  String? name;
-  int? score;
-  int? color;
+  final int? id;
+  final String? name;
+  final int? score;
+  final int? color;
 
-  PlayerEmbedded({
+  const PlayerEmbedded({
     this.id,
     this.name,
     this.score,

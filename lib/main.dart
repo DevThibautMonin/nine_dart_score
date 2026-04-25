@@ -14,12 +14,8 @@ import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-  ]);
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   FlutterError.onError = (errorDetails) {
     unawaited(FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails));
@@ -45,9 +41,7 @@ class MyApp extends StatelessWidget {
       darkTheme: darkTheme,
       home: const Scaffold(
         body: SafeArea(
-          child: TabsScreen(
-            selectedTabIndex: 0,
-          ),
+          child: TabsScreen(selectedTabIndex: 0),
         ),
       ),
     );

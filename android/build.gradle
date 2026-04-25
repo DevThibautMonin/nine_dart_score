@@ -8,14 +8,6 @@ allprojects {
 rootProject.buildDir = '../build'
 subprojects {
     project.buildDir = "${rootProject.buildDir}/${project.name}"
-    plugins.withId('com.android.library') {
-        def androidExtension = extensions.findByName('android')
-        if (androidExtension != null &&
-            androidExtension.hasProperty('namespace') &&
-            (androidExtension.namespace == null || androidExtension.namespace.toString().trim().isEmpty())) {
-            androidExtension.namespace = project.group
-        }
-    }
 }
 subprojects {
     project.evaluationDependsOn(':app')

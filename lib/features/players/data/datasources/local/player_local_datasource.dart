@@ -1,7 +1,7 @@
 import 'package:injectable/injectable.dart';
-import 'package:isar/isar.dart';
 import 'package:nine_dart_score/shared/data/datasources/local/database.dart';
 import 'package:nine_dart_score/features/players/data/entities/player/player.dart';
+import 'package:drift/drift.dart';
 
 @LazySingleton()
 class PlayerLocalDatasource {
@@ -11,22 +11,36 @@ class PlayerLocalDatasource {
     required this.database,
   });
 
-  Future createPlayer(Player player) async {
-    final db = await database.database;
-    await db.writeTxn(() async {
-      await db.players.put(player);
-    });
+  Future<void> createPlayer(Player player) async {
+    await database.into(database.playersTable).insert(
+          PlayersTableCompanion.insert(
+            name: Value(player.name),
+            score: Value(player.score),
+            color: Value(player.color),
+          ),
+        );
   }
 
   Future<List<Player>> getPlayers() async {
-    final db = await database.database;
-    return await db.players.where().findAll();
+    final playerRows = await (database.select(database.playersTable)
+          ..orderBy([(table) => OrderingTerm(expression: table.id)]))
+        .get();
+
+    return playerRows
+        .map(
+          (playerRow) => Player(
+            id: playerRow.id,
+            name: playerRow.name,
+            score: playerRow.score,
+            color: playerRow.color,
+          ),
+        )
+        .toList();
   }
 
-  Future deletePlayer(int playerId) async {
-    final db = await database.database;
-    await db.writeTxn(() async {
-      await db.players.delete(playerId);
-    });
+  Future<void> deletePlayer(int playerId) async {
+    await (database.delete(database.playersTable)
+          ..where((table) => table.id.equals(playerId)))
+        .go();
   }
 }

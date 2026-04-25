@@ -39,6 +39,11 @@ devtools_options.yaml
 .vscode/
 ios/Flutter/Debug.xcconfig
 keystore.properties
+.dartServer
+.dart-tool
+.pub-cache
+.config
+.flutter
 
 # FVM Version Cache
 .fvm/

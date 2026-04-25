@@ -1,16 +1,10 @@
-import 'package:isar/isar.dart';
-
-part 'player.g.dart';
-
-@Collection()
-@Name("Player")
 class Player {
-  Id? id = Isar.autoIncrement;
-  String? name;
-  int? score;
-  int? color;
+  final int? id;
+  final String? name;
+  final int? score;
+  final int? color;
 
-  Player({
+  const Player({
     this.id,
     this.name,
     this.score,

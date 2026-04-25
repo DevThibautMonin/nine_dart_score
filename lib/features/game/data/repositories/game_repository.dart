@@ -1,8 +1,6 @@
 import 'package:injectable/injectable.dart';
 import 'package:nine_dart_score/features/game/data/datasources/local/game_local_datasource.dart';
-import 'package:nine_dart_score/features/game/data/entities/game/game.dart';
 import 'package:nine_dart_score/features/game/data/mappers/game_mapper.dart';
-import 'package:nine_dart_score/features/players/data/mappers/player_mapper.dart';
 import 'package:nine_dart_score/features/game/data/mappers/turn_mapper.dart';
 import 'package:nine_dart_score/features/game/domain/entities/game/game.dart';
 import 'package:nine_dart_score/features/game/domain/entities/turn/turn.dart';
@@ -18,14 +16,9 @@ class GameRepository implements IGameRepository {
 
   @override
   Future<GameEntity?> createGame(GameEntity gameEntity) async {
-    final game = Game(
-      targetScore: gameEntity.targetScore,
-      name: gameEntity.name,
-      turns: gameEntity.turns?.map((turn) => TurnMapper.toData(turn)).toList(),
-    );
-    final players = gameEntity.players?.map((e) => PlayerMapper.toEmbedded(e)).toList();
+    final game = GameMapper.toData(gameEntity);
 
-    var result = await gameLocalDatasource.createGame(game, players);
+    var result = await gameLocalDatasource.createGame(game);
     if (result != null) {
       return GameMapper.toEntity(result);
     } else {
@@ -53,7 +46,7 @@ class GameRepository implements IGameRepository {
   @override
   Future<List<GameEntity>?> getGames() async {
     var games = await gameLocalDatasource.getGames();
-    final gamesEntity = games?.map((e) => GameMapper.toEntity(e)).toList();
+    final gamesEntity = games.map((e) => GameMapper.toEntity(e)).toList();
     return gamesEntity;
   }
 

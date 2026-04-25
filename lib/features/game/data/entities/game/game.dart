@@ -1,21 +1,14 @@
-import 'package:isar/isar.dart';
 import 'package:nine_dart_score/features/game/data/entities/player/player_embedded.dart';
-import 'package:nine_dart_score/features/game/data/entities/throw/throw.dart';
 import 'package:nine_dart_score/features/game/data/entities/turn/turn.dart';
-
-part 'game.g.dart';
-
-@Collection()
-@Name("Game")
 class Game {
-  Id? id = Isar.autoIncrement;
-  String? name;
-  List<PlayerEmbedded>? players;
-  int targetScore;
-  List<Turn>? turns;
-  int? turnNumber;
+  final int? id;
+  final String? name;
+  final List<PlayerEmbedded>? players;
+  final int targetScore;
+  final List<Turn>? turns;
+  final int? turnNumber;
 
-  Game({
+  const Game({
     this.id,
     this.name,
     this.players,

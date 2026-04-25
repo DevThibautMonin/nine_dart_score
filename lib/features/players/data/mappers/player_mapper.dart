@@ -27,7 +27,7 @@ class PlayerMapper {
       name: data.name,
       id: data.id,
       score: data.score,
-      color: Color(data.color ?? 0),
+      color: data.color != null ? Color(data.color!) : null,
     );
   }
 
@@ -36,7 +36,7 @@ class PlayerMapper {
       name: data.name,
       id: data.id,
       score: data.score,
-      color: Color(data.color ?? 0),
+      color: data.color != null ? Color(data.color!) : null,
     );
   }
 }

@@ -1,14 +1,9 @@
-import 'package:isar/isar.dart';
-
-part 'throw.g.dart';
-
-@Embedded()
 class Throw {
   final int? id;
   final int value;
   final int? playerId;
 
-  Throw({
+  const Throw({
     this.id,
     this.value = 0,
     this.playerId,
