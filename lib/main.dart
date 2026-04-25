@@ -1,13 +1,15 @@
+import 'dart:async';
+
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:nine_dart_score/core/commons/constants.dart';
-import 'package:nine_dart_score/core/di/injectable.dart';
+import 'package:nine_dart_score/shared/core/commons/constants.dart';
+import 'package:nine_dart_score/shared/core/di/injectable.dart';
 import 'package:nine_dart_score/firebase_options.dart';
-import 'package:nine_dart_score/presentation/tabs_screen/tabs_screen.dart';
-import 'package:nine_dart_score/themes/dark_theme.dart';
-import 'package:nine_dart_score/themes/light_theme.dart';
+import 'package:nine_dart_score/features/navigation/presentation/tabs_screen.dart';
+import 'package:nine_dart_score/shared/presentation/themes/dark_theme.dart';
+import 'package:nine_dart_score/shared/presentation/themes/light_theme.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
@@ -20,10 +22,10 @@ void main() async {
   );
 
   FlutterError.onError = (errorDetails) {
-    FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
+    unawaited(FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails));
   };
   PlatformDispatcher.instance.onError = (error, stack) {
-    FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+    unawaited(FirebaseCrashlytics.instance.recordError(error, stack, fatal: true));
     return true;
   };
 
