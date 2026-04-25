@@ -1,7 +1,7 @@
 name: nine_dart_score
 description: "Application de fléchettes permettant aux joueurs de compter facilement leurs scores et de suivre leur progression."
 publish_to: 'none'
-version: 1.0.2+6
+version: 1.0.3+7
 
 environment:
   sdk: ^3.11.5
